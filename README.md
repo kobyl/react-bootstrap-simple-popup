@@ -14,15 +14,23 @@ let open = () => { };
 let close = () => { };
 
 ReactDOM.render(
-  [
-    <button onClick={() => {
-        open();
-    }}>Open Popup!</button>,
-    <Container>
-      <SimplePopup title="Test Popup" message="Here's a popup!" buttons={[{
-        label: 'Ok!',
-        id: 'okButton'
-      }]} controls={(c, o) => { close = c; open = o }} on={id => close()}/>
-    </Container>], document.getElementById("root"));
+[
+<button onClick={() => {
+    open();
+}}>Open Popup!</button>,
+<Container>
+    <SimplePopup title="Test Popup" message="Here's a popup!" buttons={[{
+    label: 'Ok!',
+    id: 'okButton'
+    }]} controls={(c, o) => { close = c; open = o }} on={id => close()}/>
+</Container>], document.getElementById("root"));
+```
+
+You can also put components in the children and they will get rendered. So if you want form elements in there you can do:
+
+```
+<SimpleModal ...>
+  <input .../>
+</SimpleModal>
 ```
 

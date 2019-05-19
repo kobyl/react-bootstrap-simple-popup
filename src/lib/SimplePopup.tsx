@@ -8,11 +8,11 @@ export interface ButtonInfo {
 }
 
 export interface Props {
-  message: string;
   title: string;
   buttons?: ButtonInfo[];
-  on?: (buttonId: string) => void;
+  message?: string;
   controls: (close: () => void, open: () => void) => void;
+  on?: (buttonId: string) => void;
 }
 
 interface State {
@@ -47,7 +47,8 @@ export class SimplePopup extends React.Component<Props, State> {
         </Modal.Header>
 
         <Modal.Body>
-          <p>{this.props.message}</p>
+          {this.props.message && <p>{this.props.message}</p>}
+          {this.props.children && this.props.children}
         </Modal.Body>
 
         <Modal.Footer>

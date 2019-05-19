@@ -4,17 +4,33 @@ import "./index.css";
 import { SimplePopup } from "./lib/SimplePopup";
 import { Container } from "react-bootstrap";
 
-let open = () => { };
-let close = () => { };
+let simpleOpen = () => { };
+let simpleClose = () => { };
+
+let childrenOpen = () => { };
+let childrenClose = () => { };
 
 ReactDOM.render(
   [
     <button onClick={() => {
-        open();
-    }}>Open Popup!</button>,
+      childrenOpen();
+    }}>Open Popup With children</button>,
+    <button onClick={() => {
+      simpleOpen();
+    }}>Open Simple Popup</button>,
     <Container>
-      <SimplePopup title="Test Popup" message="Here's a popup!" buttons={[{
+      <SimplePopup title="Test Simple Popup" message="This one just displays this message" buttons={[{
         label: 'Ok!',
         id: 'okButton'
-      }]} controls={(c, o) => { close = c; open = o }} on={id => close()}/>
+      }]}
+        controls={(c, o) => { simpleOpen = o; simpleClose = c }}
+        on={() => simpleClose()}
+      />
+      <SimplePopup title="Popup with children"
+        controls={(c, o) => { childrenOpen = o; childrenClose = c }}>
+        <p>This one has embedded content</p>
+        <input type='text' style={{ width: '100%' }}
+          value='...with some form elements.' /><br />
+        <button onClick={() => childrenClose()}>Close</button>
+      </SimplePopup>
     </Container>], document.getElementById("root"));
