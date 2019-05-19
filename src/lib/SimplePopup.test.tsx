@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { PropViewer } from './PropViewer';
+import { SimplePopup } from './SimplePopup';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<PropViewer test='test 1' />, div);
+  ReactDOM.render(<SimplePopup message="test" title="Test Title" controls={(close, open) => {}}/>, div);
   ReactDOM.unmountComponentAtNode(div);
 });

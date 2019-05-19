@@ -1,14 +1,27 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import "./index.css";
-import PropViewer from "./lib/PropViewer";
+import { SimplePopup } from "./lib/SimplePopup";
+import { Container } from "react-bootstrap";
 
-let prop = {
-  test1: "test1",
-  ob: {
-    test2: "test2",
-    test3: "test3"
-  },
-  arr: [1, 2, 3, "v2"]
-};
-ReactDOM.render(<PropViewer test={prop} />, document.getElementById("root"));
+let opened = false;
+
+let open = () => { };
+let close = () => { };
+
+ReactDOM.render(
+  [
+    <button onClick={() => {
+      if (opened) {
+        close();
+      } else {
+        open();
+      }
+      opened = !opened;
+    }}>Open Popup!</button>,
+    <Container>
+      <SimplePopup title="Test Popup" message="Here's a popup!" buttons={[{
+        label: 'Ok!',
+        id: 'okButton'
+      }]} controls={(c, o) => { close = c; open = o }} on={id => close()}/>
+    </Container>], document.getElementById("root"));
