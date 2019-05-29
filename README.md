@@ -7,7 +7,8 @@ This project is built with yarn, but npm should work as well.
 To test run npm install and npm run start
 To build the library run npm run build
 
-### Usage
+Two ways to use it:
+### Static 
 
 ```
 let open = () => { };
@@ -34,3 +35,43 @@ You can also put components in the children and they will get rendered. So if yo
 </SimpleModal>
 ```
 
+### Dynamic 
+
+I also discovered I wanted to do some inline workflow. ie. Do some work, ask the user something and respond.
+
+```
+let open = () => { };
+let close = () => { };
+let openWithProps = (displayProps) => void;
+
+ReactDOM.render(
+[
+    <button
+      onClick={() => {
+        openWithProps({
+          title: "Title is set during click",
+          message:
+            "We modified the title, message, buttons and callbacks!",
+          buttons: [
+            {
+              id: "new1",
+              label: "Choice 1"
+            },
+            {
+              id: "new2",
+              label: "Choice 2"
+            }
+          ],
+          on: id => {
+            alert(id + "was clicked");
+          }
+        });
+      }}
+    >,
+<Container>
+    <SimplePopup title="Test Popup" message="Here's a popup!" buttons={[{
+    label: 'Ok!',
+    id: 'okButton'
+    }]} controls={(c, o, withProps) => { close = c; open = o, openWithProps = withProps }} on={id => close()}/>
+</Container>], document.getElementById("root"));
+```

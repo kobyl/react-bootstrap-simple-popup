@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-simple-popup",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "private": false,
   "description": "A simple modal based on react-bootrap's modal",
   "main": "dist/exports.js",

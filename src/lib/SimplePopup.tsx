@@ -7,15 +7,22 @@ export interface ButtonInfo {
   id?: string;
 }
 
-export interface Props {
+export interface DisplayProps {
   title: string;
   buttons?: ButtonInfo[];
   message?: string;
-  controls: (close: () => void, open: () => void) => void;
   on?: (buttonId: string) => void;
 }
 
-interface State {
+export interface Props extends DisplayProps {
+  controls: (
+    close: () => void,
+    open: () => void,
+    openWithProps: (display: DisplayProps) => void
+  ) => void;
+}
+
+interface State extends DisplayProps {
   opened: boolean;
 }
 
@@ -23,23 +30,31 @@ export class SimplePopup extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      opened: false
+      opened: false,
+      title: ""
     };
   }
 
   componentDidMount() {
     console.log("popup mounted");
-
-    this.props.controls(
+    let { controls, ...rest} = this.props;
+    controls(
       () => this.setState({ opened: false }),
       () => this.setState({ opened: true }),
+      (displayProps: DisplayProps) => {
+        this.setState({
+          ...displayProps,
+          opened: true
+        });
+      }
     );
+    this.setState(rest as DisplayProps);
   }
 
   render() {
     let on = this.props.on || (() => {});
-    let buttons = this.props.buttons || [];
-
+    let buttons = this.state.buttons || [];
+    let buttonNum = 0;
     return (
       <Modal show={this.state.opened} onHide={() => {}}>
         <Modal.Header>
@@ -47,7 +62,7 @@ export class SimplePopup extends React.Component<Props, State> {
         </Modal.Header>
 
         <Modal.Body>
-          {this.props.message && <p>{this.props.message}</p>}
+          {this.state.message && <p>{this.state.message}</p>}
           {this.props.children && this.props.children}
         </Modal.Body>
 
@@ -59,6 +74,7 @@ export class SimplePopup extends React.Component<Props, State> {
                 onClick={() => {
                   on(info.id);
                 }}
+                key={`button${buttonNum++}`}
               >
                 {info.label}
               </Button>
