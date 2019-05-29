@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-simple-popup",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "description": "A simple modal based on react-bootrap's modal",
   "main": "dist/exports.js",
@@ -19,7 +19,8 @@
     "test:watch": "yarn test -- --watch",
     "coverage": "yarn test -- --coverage --no-cache",
     "coverage:watch": "yarn run coverage -- --watch",
-    "start": "webpack-serve --config webpack.config.dev.js"
+    "start": "webpack-serve --config webpack.config.dev.js",
+    "pubish": "npm run build && npm publish"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

@@ -52,7 +52,7 @@ export class SimplePopup extends React.Component<Props, State> {
   }
 
   render() {
-    let on = this.props.on || (() => {});
+    let on = this.state.on || (() => {});
     let buttons = this.state.buttons || [];
     let buttonNum = 0;
     return (

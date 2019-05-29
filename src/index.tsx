@@ -45,6 +45,7 @@ ReactDOM.render(
           ],
           on: id => {
             alert(id + "was clicked");
+            simpleClose();
           }
         });
       }}
