@@ -54,10 +54,26 @@ var webpack_opts = {
   mode: "production",
   output: {
     filename: "exports.js",
-    libraryTarget: "commonjs2",
+    libraryTarget: "umd",
     path: path.resolve(__dirname, "dist")
   },
-  externals: [nodeExternals()],
+  externals: {
+      // Don't bundle react or react-dom
+      react: {
+        commonjs: "react",
+        commonjs2: "react",
+        amd: "React",
+        root: "React",
+        umd: "react",
+      },
+      "react-dom": {
+        commonjs: "react-dom",
+        commonjs2: "react-dom",
+        umd: "react-dom",
+        amd: "ReactDOM",
+        root: "ReactDOM"
+      }
+    },
   plugins: [
     //    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
     new webpack.ProgressPlugin(percentage_handler)
